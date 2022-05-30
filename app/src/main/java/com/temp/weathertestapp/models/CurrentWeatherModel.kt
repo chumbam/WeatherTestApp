@@ -1,8 +1,14 @@
 package com.temp.weathertestapp.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
+@Entity(tableName = "city")
 data class CurrentWeatherModel(
+    @PrimaryKey(autoGenerate = true)
+    var key: Int? = null ,
     @SerializedName("dt")
     val dt: Int,
 
@@ -35,7 +41,7 @@ data class CurrentWeatherModel(
 
     @SerializedName("wind")
     val wind: Wind
-)
+):Serializable
 
 data class Coord(
     @SerializedName("lon")
@@ -67,6 +73,9 @@ data class Main(
 
     @SerializedName("grnd_level")
     val grndLevel: Double,
+
+    @SerializedName("feels_like")
+    val feelLike: Double,
 
     @SerializedName("humidity")
     val humidity: Int,

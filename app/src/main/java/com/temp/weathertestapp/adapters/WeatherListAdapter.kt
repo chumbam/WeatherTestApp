@@ -51,15 +51,22 @@ class WeatherListAdapter : RecyclerView.Adapter<WeatherListAdapter.WeatherListVi
         return differ.currentList.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: WeatherListViewHolder, position: Int) {
         val weatherItem = differ.currentList[position]
         val data = Date()
         holder.itemView.apply {
             findViewById<TextView>(R.id.rv_city_name).text = weatherItem.name
-            findViewById<TextView>(R.id.rv_degrees).text = weatherItem.main.temp.toString()
+            findViewById<TextView>(R.id.rv_degrees).text = weatherItem.main.temp.toString() + "°C"
             findViewById<TextView>(R.id.rv_week_day).text = getWeekDay()
             findViewById<TextView>(R.id.rv_weather_description).text =
                 weatherItem.weather.first().main
+//            findViewById<TextView>(R.id.rv_feel_like).text =
+//                weatherItem.main.feelLike.toInt().toString() + "°C"
+            findViewById<TextView>(R.id.rv_humidity_value).text =
+                weatherItem.main.humidity.toInt().toString() + "%"
+            findViewById<TextView>(R.id.rv_wind_speed).text =
+                weatherItem.wind.speed.toInt().toString()
             val imageView = findViewById<AppCompatImageView>(R.id.rv_weather_icon)
             AppUtils.setWeatherIcon(context, imageView, weatherItem.weather.first().id)
 

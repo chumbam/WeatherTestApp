@@ -31,7 +31,7 @@ class MainWeatherViewModel @Inject constructor(private val repository: MainWeath
     fun getCurrentWeather() = viewModelScope.launch {
         _currWeather.postValue(Resource.Loading())
         val response = repository.getCurrentWeather(
-            "Moscow",
+            "London",
             Constants.UNITS,
             Constants.LANG,
             Constants.API_KEY

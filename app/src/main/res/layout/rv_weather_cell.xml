@@ -9,9 +9,9 @@
         android:id="@+id/rv_card"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:cardBackgroundColor="#3498DB"
         android:clickable="true"
         android:focusable="true"
+        app:cardBackgroundColor="#3498DB"
         app:cardCornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,17 +54,6 @@
                 app:layout_constraintStart_toStartOf="@id/rv_degrees"
                 app:layout_constraintTop_toBottomOf="@id/rv_degrees" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_week_day" />
-
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/rv_weather_icon"
                 android:layout_width="72dp"
@@ -87,7 +76,115 @@
                 app:layout_constraintStart_toStartOf="@id/rv_weather_icon"
                 app:layout_constraintTop_toBottomOf="@id/rv_weather_icon" />
 
+            <View
+                android:id="@+id/rv_divider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_week_day" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_divider">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="4dp">
+
+                    <ImageView
+                        android:id="@+id/rv_thermometer_img"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_thermometer"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/rv_feel_like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="20"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/rv_thermometer_img"
+                        app:layout_constraintStart_toEndOf="@id/rv_thermometer_img"
+                        app:layout_constraintTop_toTopOf="@id/rv_thermometer_img" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="4dp">
+
+                    <ImageView
+                        android:id="@+id/rv_wind_img"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_wind"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/rv_wind_speed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="20"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/rv_wind_img"
+                        app:layout_constraintStart_toEndOf="@id/rv_wind_img"
+                        app:layout_constraintTop_toTopOf="@id/rv_wind_img" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="4dp">
+
+                    <ImageView
+                        android:id="@+id/rv_humidity_img"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_humidity"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/rv_humidity_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="20"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/rv_humidity_img"
+                        app:layout_constraintStart_toEndOf="@id/rv_humidity_img"
+                        app:layout_constraintTop_toTopOf="@id/rv_humidity_img" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

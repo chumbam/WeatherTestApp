@@ -1,20 +1,14 @@
 package com.temp.weathertestapp.db
 
-import androidx.room.DatabaseConfiguration
-import androidx.room.InvalidationTracker
-import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteOpenHelper
+import androidx.room.*
+import com.temp.weathertestapp.models.CurrentWeatherModel
+import com.temp.weathertestapp.utils.Converter
 
-class WeatherDatabase: RoomDatabase() {
-    override fun createOpenHelper(config: DatabaseConfiguration?): SupportSQLiteOpenHelper {
-        TODO("Not yet implemented")
-    }
-
-    override fun createInvalidationTracker(): InvalidationTracker {
-        TODO("Not yet implemented")
-    }
-
-    override fun clearAllTables() {
-        TODO("Not yet implemented")
-    }
+@Database(
+    entities = [CurrentWeatherModel::class],
+    version = 1
+)
+@TypeConverters(Converter::class)
+abstract class WeatherDatabase : RoomDatabase() {
+    abstract fun getWeatherDao(): WeatherDAO
 }

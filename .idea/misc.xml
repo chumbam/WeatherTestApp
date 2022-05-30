@@ -6,9 +6,11 @@
         <entry key="..\:/Programming/AndroidStudioProjects/WeatherTestApp/app/src/main/res/drawable/bg_gradient.xml" value="0.1075" />
         <entry key="..\:/Programming/AndroidStudioProjects/WeatherTestApp/app/src/main/res/layout/activity_main.xml" value="0.18802083333333333" />
         <entry key="..\:/Programming/AndroidStudioProjects/WeatherTestApp/app/src/main/res/layout/fragment_city_weather_list.xml" value="0.18802083333333333" />
-        <entry key="..\:/Programming/AndroidStudioProjects/WeatherTestApp/app/src/main/res/layout/fragment_more_weather.xml" value="0.18802083333333333" />
+        <entry key="..\:/Programming/AndroidStudioProjects/WeatherTestApp/app/src/main/res/layout/fragment_more_weather.xml" value="0.23510971786833856" />
         <entry key="..\:/Programming/AndroidStudioProjects/WeatherTestApp/app/src/main/res/layout/progress_bar.xml" value="0.18802083333333333" />
         <entry key="..\:/Programming/AndroidStudioProjects/WeatherTestApp/app/src/main/res/layout/rv_weather_cell.xml" value="0.33" />
+        <entry key="..\:/Programming/AndroidStudioProjects/WeatherTestApp/app/src/main/res/layout/rv_weekly_weather_cell.xml" value="0.2" />
+        <entry key="..\:/Programming/AndroidStudioProjects/WeatherTestApp/app/src/main/res/layout/temp.xml" value="0.33" />
       </map>
     </option>
   </component>
