@@ -26,6 +26,7 @@ import javax.inject.Inject
 class MainWeatherViewModel @Inject constructor(private val repository: MainWeatherRepository) :
     ViewModel() {
 
+
     private val _weatherAppState: MutableLiveData<WeatherAppState> =
         MutableLiveData(WeatherAppState.CurrentWeatherListScreenState)
     val weatherAppState: LiveData<WeatherAppState> = _weatherAppState
@@ -113,6 +114,7 @@ class MainWeatherViewModel @Inject constructor(private val repository: MainWeath
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 if (!cityList.contains(it)) {
+                    viewModelScope.launch {repository.addCityToDb(it)}
                     cityList.addFirst(it)
                     _currWeather.postValue(Resource.Success(cityList))
                 } else {
@@ -123,4 +125,16 @@ class MainWeatherViewModel @Inject constructor(private val repository: MainWeath
             }
             )
     }
+
+    fun getAllCityFromDb(): LiveData<List<CurrentWeatherModel>> {
+       return repository.getAllCity()
+    }
+//    private fun initApp(){
+//        if (repository.getAllCity().value != null) {
+//            val list = repository.getAllCity().value
+//            list?.let{_currWeather.postValue(Resource.Success(it)) }
+//        } else {
+//            getCurrentWeather("Moscow")
+//        }
+//    }
 }

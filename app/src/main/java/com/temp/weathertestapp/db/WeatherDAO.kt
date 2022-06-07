@@ -11,7 +11,7 @@ interface WeatherDAO {
     suspend fun addCityToDb(city: CurrentWeatherModel): Long
 
     @Query("SELECT * FROM city")
-    fun getAllCity(): LiveData<CurrentWeatherModel>
+    fun getAllCity(): LiveData<List<CurrentWeatherModel>>
 
     @Delete
     suspend fun deleteCity(city: CurrentWeatherModel)

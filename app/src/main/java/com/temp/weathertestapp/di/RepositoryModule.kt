@@ -1,5 +1,6 @@
 package com.temp.weathertestapp.di
 
+import com.temp.weathertestapp.db.WeatherDAO
 import com.temp.weathertestapp.network.WeatherApi
 import com.temp.weathertestapp.repository.LocalData
 import com.temp.weathertestapp.repository.MainWeatherRepository
@@ -21,8 +22,8 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideLocalData() =
-        LocalData()
+    fun provideLocalData(dao: WeatherDAO) =
+        LocalData(dao)
 
     @Singleton
     @Provides

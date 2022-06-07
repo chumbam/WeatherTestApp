@@ -1,13 +1,14 @@
 package com.temp.weathertestapp.repository
 
 
+import com.temp.weathertestapp.models.CurrentWeatherModel
 import javax.inject.Inject
 
 class MainWeatherRepository @Inject constructor(
     private val localData: LocalData,
     private val remoteData: RemoteData
 ) {
-    //Remote
+    //Remote request
     fun getCurrentWeather(cityName: String, units: String, lang: String, appId: String) =
         remoteData.getCurrentWeather(cityName, units, lang, appId)
 
@@ -23,8 +24,9 @@ class MainWeatherRepository @Inject constructor(
         appId: String
     ) = remoteData.getWeeklyWeather(lat, lon, exclude, units, lang, appId)
 
-    //Local
-
-
+    //Local request
+    fun getAllCity() = localData.getAllCity()
+    suspend fun addCityToDb(city: CurrentWeatherModel) = localData.addCityToDb(city)
+    suspend fun deleteCityFromDb(city: CurrentWeatherModel) = localData.deleteCityFromDb(city)
 
 }

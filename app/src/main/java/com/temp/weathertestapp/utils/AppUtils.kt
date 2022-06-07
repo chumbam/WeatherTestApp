@@ -42,23 +42,6 @@ object AppUtils {
             }
         }
     }
-
-//    fun getTime(calendar: Calendar, context: Context): String? {
-//        val hour = calendar[Calendar.HOUR_OF_DAY]
-//        val minute = calendar[Calendar.MINUTE]
-//        val hourString: String = if (hour < 10) {
-//            String.format(Locale.getDefault(), context.getString(R.string.zero_label), hour)
-//        } else {
-//            String.format(Locale.getDefault(), "%d", hour)
-//        }
-//        val minuteString: String = if (minute < 10) {
-//            String.format(Locale.getDefault(), context.getString(R.string.zero_label), minute)
-//        } else {
-//            String.format(Locale.getDefault(), "%d", minute)
-//        }
-//        return "$hourString:$minuteString"
-//    }
-
     @SuppressLint("SimpleDateFormat")
     fun getWeekDay(timeInMillis: Int): String{
         val frm = SimpleDateFormat("EEEE")

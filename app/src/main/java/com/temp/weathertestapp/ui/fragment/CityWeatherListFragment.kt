@@ -14,6 +14,7 @@ import com.temp.weathertestapp.adapters.WeatherListAdapter
 import com.temp.weathertestapp.base.BaseFragment
 import com.temp.weathertestapp.databinding.AddCityDialogViewBinding
 import com.temp.weathertestapp.databinding.FragmentCityWeatherListBinding
+import com.temp.weathertestapp.models.CurrentWeatherModel
 import com.temp.weathertestapp.ui.MainActivity
 import com.temp.weathertestapp.ui.MainWeatherViewModel
 import com.temp.weathertestapp.utils.FabButtonClick
@@ -34,6 +35,7 @@ class CityWeatherListFragment : BaseFragment(), FabButtonClick {
             "Weather Adapter isn't initialized"
         }
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,6 +51,24 @@ class CityWeatherListFragment : BaseFragment(), FabButtonClick {
         setupDialog()
         setFabListener()
         observableViewModel()
+
+        viewModel.getAllCityFromDb().observe(viewLifecycleOwner){
+            Log.e(TAG, "getAllCity")
+            when(it){
+                null, emptyList<CurrentWeatherModel>() -> {
+                    viewModel.getCurrentWeather("Moscow")
+                    Log.e(TAG, "getAllCity = null")
+
+                }
+                else -> {
+                    weatherAdapter.setData(it)
+                    Log.e(TAG, "getAllCity" + it.toString())
+
+                    Log.e(TAG, "getAllCity = notNull")
+
+                }
+            }
+        }
 
         dialogBinding.apply {
             dialogOkBtn.setOnClickListener {
