@@ -63,6 +63,24 @@ class MainWeatherViewModel @Inject constructor(private val repository: MainWeath
         currentWeatherResponseHandle(response)
     }
 
+    @SuppressLint("CheckResult")
+    fun currentWeatherResponseHandle(resp: Single<CurrentWeatherModel>) {
+        resp.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                if (!cityList.contains(it)) {
+                    viewModelScope.launch { repository.addCityToDb(it) }
+                    cityList.addFirst(it)
+                    _currWeather.postValue(Resource.Success(cityList))
+                } else {
+                    _currWeather.postValue(Resource.Error("Данный город уже присутсвует в списке"))
+                }
+            }, {
+                _currWeather.postValue(it.message?.let { error -> Resource.Error(error) })
+            }
+            )
+    }
+
     //    fun getFiveDaysHourlyWeather(model: CurrentWeatherModel) = viewModelScope.launch {
 //        _weeklyWeather.postValue(Resource.Loading())
 //        val response = repository.getFiveDayWeather(
@@ -108,26 +126,16 @@ class MainWeatherViewModel @Inject constructor(private val repository: MainWeath
     }
 
 
-    @SuppressLint("CheckResult")
-    fun currentWeatherResponseHandle(resp: Single<CurrentWeatherModel>) {
-        resp.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                if (!cityList.contains(it)) {
-                    viewModelScope.launch {repository.addCityToDb(it)}
-                    cityList.addFirst(it)
-                    _currWeather.postValue(Resource.Success(cityList))
-                } else {
-                    _currWeather.postValue(Resource.Error("Данный город уже присутсвует в списке"))
-                }
-            }, {
-                _currWeather.postValue(it.message?.let { error -> Resource.Error(error) })
-            }
-            )
+    fun getAllCityFromDb(): LiveData<List<CurrentWeatherModel>> {
+        return repository.getAllCity()
     }
 
-    fun getAllCityFromDb(): LiveData<List<CurrentWeatherModel>> {
-       return repository.getAllCity()
+    fun deleteCityFromDb(city: CurrentWeatherModel) = viewModelScope.launch {
+        repository.deleteCityFromDb(city)
+    }
+
+    fun saveCityInDb(city: CurrentWeatherModel) = viewModelScope.launch {
+        repository.addCityToDb(city)
     }
 //    private fun initApp(){
 //        if (repository.getAllCity().value != null) {

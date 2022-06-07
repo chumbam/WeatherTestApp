@@ -9,7 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.temp.weathertestapp.adapters.WeatherListAdapter
 import com.temp.weathertestapp.base.BaseFragment
 import com.temp.weathertestapp.databinding.AddCityDialogViewBinding
@@ -51,24 +54,27 @@ class CityWeatherListFragment : BaseFragment(), FabButtonClick {
         setupDialog()
         setFabListener()
         observableViewModel()
+        setListeners()
 
-        viewModel.getAllCityFromDb().observe(viewLifecycleOwner){
-            Log.e(TAG, "getAllCity")
-            when(it){
-                null, emptyList<CurrentWeatherModel>() -> {
-                    viewModel.getCurrentWeather("Moscow")
-                    Log.e(TAG, "getAllCity = null")
 
-                }
-                else -> {
-                    weatherAdapter.setData(it)
-                    Log.e(TAG, "getAllCity" + it.toString())
+    }
 
-                    Log.e(TAG, "getAllCity = notNull")
 
-                }
-            }
+    private fun setupDialog() {
+        addCityDialog = context?.let { Dialog(it) }
+        dialogBinding = AddCityDialogViewBinding.inflate(layoutInflater)
+        addCityDialog?.setContentView(dialogBinding.root)
+    }
+
+    private fun setupRV() {
+        _weatherAdapter = WeatherListAdapter()
+        binding.fcwlRvCurrentWeather.apply {
+            adapter = weatherAdapter
+            layoutManager = LinearLayoutManager(activity)
         }
+    }
+
+    private fun setListeners() {
 
         dialogBinding.apply {
             dialogOkBtn.setOnClickListener {
@@ -85,6 +91,47 @@ class CityWeatherListFragment : BaseFragment(), FabButtonClick {
             viewModel.getWeeklyWeather(it)
             viewModel.obtainNavigationEvent(WeatherAppState.MoreWeatherScreenState(it))
         }
+
+        val itemClickHelperCCallback = object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val pos = viewHolder.bindingAdapterPosition
+                val city = weatherAdapter.oldWeatherList[pos]
+                viewModel.deleteCityFromDb(city)
+                Snackbar.make(view!!, "Город успешно удалена", Snackbar.LENGTH_LONG).apply {
+                    setAction("Отменить") {
+                        viewModel.saveCityInDb(city)
+                    }
+                    show()
+                }
+            }
+        }
+
+        ItemTouchHelper(itemClickHelperCCallback).apply {
+            attachToRecyclerView(binding.fcwlRvCurrentWeather)
+        }
+    }
+
+    private fun setFabListener() {
+        (activity as MainActivity).setListener(this)
+    }
+
+    override fun onFabClick() {
+        addCityDialog?.show()
+    }
+
+    private fun showLoading(status: Boolean) {
+        binding.fcwlProgress.progressBar.visibility = if (status) View.VISIBLE else View.INVISIBLE
     }
 
     private fun observableViewModel() {
@@ -106,41 +153,32 @@ class CityWeatherListFragment : BaseFragment(), FabButtonClick {
                 is Resource.Loading -> {
                     showLoading(true)
                     Log.e("CityWeatherLIst", "Loading")
-                    Toast.makeText(context, it.message.toString(), Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, it.message.toString(), Toast.LENGTH_SHORT).show()
                 }
 
             }
         }
-    }
 
-    private fun setupDialog() {
-        addCityDialog = context?.let { Dialog(it) }
-        dialogBinding = AddCityDialogViewBinding.inflate(layoutInflater)
-        addCityDialog?.setContentView(dialogBinding.root)
-    }
+        viewModel.getAllCityFromDb().observe(viewLifecycleOwner) {
+            Log.e(TAG, "getAllCity")
+            when (it) {
+                null, emptyList<CurrentWeatherModel>() -> {
+                    viewModel.getCurrentWeather("Moscow")
+                    Log.e(TAG, "getAllCity = null")
 
-    private fun setupRV() {
-        _weatherAdapter = WeatherListAdapter()
-        binding.fcwlRvCurrentWeather.apply {
-            adapter = weatherAdapter
-            layoutManager = LinearLayoutManager(activity)
+                }
+                else -> {
+                    weatherAdapter.setData(it)
+                    Log.e(TAG, "getAllCity" + it.toString())
+
+                    Log.e(TAG, "getAllCity = notNull")
+
+                }
+            }
         }
-    }
-
-    private fun showLoading(status: Boolean) {
-        binding.fcwlProgress.progressBar.visibility = if (status) View.VISIBLE else View.INVISIBLE
-    }
-
-    private fun setFabListener() {
-        (activity as MainActivity).setListener(this)
     }
 
     companion object {
         val TAG: String = CityWeatherListFragment::class.java.simpleName
     }
-
-    override fun onFabClick() {
-        addCityDialog?.show()
-    }
-
 }

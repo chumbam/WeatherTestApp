@@ -18,7 +18,8 @@ import java.util.*
 
 class WeatherListAdapter : RecyclerView.Adapter<WeatherListAdapter.WeatherListViewHolder>() {
 
-        private var oldWeatherList = emptyList<CurrentWeatherModel>()
+        var oldWeatherList = emptyList<CurrentWeatherModel>()
+        private set
 //    private val differCallback = object : DiffUtil.ItemCallback<CurrentWeatherModel>() {
 //        override fun areItemsTheSame(
 //            oldItem: CurrentWeatherModel,
