@@ -8,7 +8,7 @@ import java.io.Serializable
 @Entity(tableName = "city")
 data class CurrentWeatherModel(
     @PrimaryKey(autoGenerate = true)
-    var key: Int? = null ,
+    var key: Int? = null,
     @SerializedName("dt")
     val dt: Int,
 
@@ -41,7 +41,7 @@ data class CurrentWeatherModel(
 
     @SerializedName("wind")
     val wind: Wind
-):Serializable
+) : Serializable
 
 data class Coord(
     @SerializedName("lon")

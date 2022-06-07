@@ -1,9 +1,13 @@
 package com.temp.weathertestapp.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
 import com.temp.weathertestapp.R
+import java.text.SimpleDateFormat
+import java.util.*
 
 object AppUtils {
 
@@ -37,5 +41,30 @@ object AppUtils {
                 Glide.with(context).load(R.drawable.ic_cloudy_weather).into(imageView)
             }
         }
+    }
+
+//    fun getTime(calendar: Calendar, context: Context): String? {
+//        val hour = calendar[Calendar.HOUR_OF_DAY]
+//        val minute = calendar[Calendar.MINUTE]
+//        val hourString: String = if (hour < 10) {
+//            String.format(Locale.getDefault(), context.getString(R.string.zero_label), hour)
+//        } else {
+//            String.format(Locale.getDefault(), "%d", hour)
+//        }
+//        val minuteString: String = if (minute < 10) {
+//            String.format(Locale.getDefault(), context.getString(R.string.zero_label), minute)
+//        } else {
+//            String.format(Locale.getDefault(), "%d", minute)
+//        }
+//        return "$hourString:$minuteString"
+//    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun getWeekDay(timeInMillis: Int): String{
+        val frm = SimpleDateFormat("EEEE")
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = timeInMillis * 1000L
+        Log.e("AppUtils", frm.format(calendar.time))
+        return frm.format(calendar.time)
     }
 }

@@ -15,7 +15,7 @@
             android:background="@color/purple_500">
 
             <TextView
-                android:id="@+id/city"
+                android:id="@+id/fmw_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -25,20 +25,20 @@
                 tools:text="New Delhi" />
 
             <TextView
-                android:id="@+id/date"
+                android:id="@+id/fmw_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/city"
+                android:layout_below="@+id/fmw_city"
                 android:layout_marginStart="16dp"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 tools:text="Friday, June 30" />
 
             <TextView
-                android:id="@+id/condition"
+                android:id="@+id/fmw_condition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/date"
+                android:layout_below="@+id/fmw_date"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:textColor="@color/white"
@@ -47,7 +47,7 @@
                 tools:text="Light Rain" />
 
             <ImageView
-                android:id="@+id/weather_resource"
+                android:id="@+id/fmw_weather_resource"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_alignParentEnd="true"
@@ -55,7 +55,7 @@
                 android:src="@drawable/art_light_rain" />
 
             <TextView
-                android:id="@+id/temp_condition"
+                android:id="@+id/fmw_temp_condition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -66,7 +66,7 @@
 
         </RelativeLayout>
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
+            android:id="@+id/fmw_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/relative"/>

@@ -5,6 +5,7 @@ object Constants {
     const val API_KEY = "bd7443b610c0eece486ba59a0cf3deb8"
     const val UNITS = "metric"
     const val LANG = "ru"
+    const val EXCLUDE_PARAM = ""
 
     val DAYS_OS_WEEK = listOf(
         "Sunday",
